@@ -1,5 +1,5 @@
 import { ImageService } from '../services/image.service'
-import { Component } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { animate, state, style, transition, trigger } from '@angular/animations'
 
 @Component({
@@ -78,6 +78,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 
 export class ViewerComponent {
+    @Input('downloadable') downloadable: boolean = false
     showViewer: boolean
     images: Array<any> = [{}]
     currentIdx: number = 0
@@ -177,6 +178,17 @@ export class ViewerComponent {
         this.images.forEach(image => image['transition'] = undefined)
         this.images.forEach(image => image['active'] = false)
         this.imageService.showImageViewer(false)
+    }
+
+    downloadImage(): void {
+        const fakeLinkElement = document.createElement('a')
+        const currentImg = this.images[this.currentIdx]
+
+        fakeLinkElement.href = currentImg.raw.path
+        fakeLinkElement.download = currentImg.name
+        document.body.appendChild(fakeLinkElement)
+        fakeLinkElement.click()
+        document.body.removeChild(fakeLinkElement)
     }
 
     onKeydown(event: KeyboardEvent): void {

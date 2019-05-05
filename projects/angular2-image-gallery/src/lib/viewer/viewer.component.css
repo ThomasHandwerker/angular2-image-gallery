@@ -83,12 +83,17 @@
     opacity: 1.0;
     z-index: 200;
     transition: all ease-out 0.5s;
+
+    display: flex;
+    align-items: center;
 }
 
 .buttonContainer .action {
     height: 100%;
     cursor: pointer;
     vertical-align: top;
+
+    margin-left: 15px;
 }
 
 .buttonContainer .action:focus {
